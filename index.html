@@ -172,7 +172,20 @@ pre{padding:14px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-siz
 .hbadges{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
 .hbadge{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:500;padding:4px 11px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid var(--border-l);color:var(--text-2)}
 .hbadge.on{color:var(--green);border-color:rgba(34,197,94,.22);background:rgba(34,197,94,.05)}.hbadge.pending{color:var(--accent);border-color:var(--accent-border);background:var(--accent-bg)}
+/* ── Light mode ── */
+[data-theme="light"]{--bg:#f8fafc;--bg-base:#ffffff;--bg-surface:#f1f5f9;--bg-elevated:#e8edf5;--bg-hover:#e2e8f0;--bg-code:#f1f5f9;--text:#0f172a;--text-2:#475569;--text-3:#64748b;--text-4:#94a3b8;--border:#e2e8f0;--border-l:#cbd5e1;--accent-bg:rgba(245,158,11,.06);--accent-border:rgba(245,158,11,.2);--green-bg:rgba(34,197,94,.06);--blue-bg:rgba(59,130,246,.06);--red-bg:rgba(239,68,68,.05);--purple-bg:rgba(167,139,250,.06);--teal-bg:rgba(20,184,166,.06)}
+[data-theme="light"] header{background:rgba(248,250,252,.92)}
+[data-theme="light"] .sidebar{background:var(--bg-base)}
+[data-theme="light"] .hdr-search{background:var(--bg-surface)}
+[data-theme="light"] .hbadge{background:rgba(0,0,0,.03)}
+[data-theme="light"] .ep{background:var(--bg-surface)}
+[data-theme="light"] .cb,.cb-hdr,[data-theme="light"] pre{background:var(--bg-code)}
+[data-theme="light"] .k{color:#7c3aed}[data-theme="light"] .s{color:#16a34a}[data-theme="light"] .c{color:#64748b;font-style:italic}[data-theme="light"] .ky{color:#2563eb}[data-theme="light"] .u{color:#0d9488}[data-theme="light"] .n{color:#b45309}
+/* Theme toggle */
+.theme-toggle{background:none;border:1px solid var(--border-l);color:var(--text-2);width:32px;height:32px;border-radius:7px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;font-size:14px;padding:0;flex-shrink:0}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
 </style>
+<script>(function(){var t=localStorage.getItem('cf-theme');if(t){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia('(prefers-color-scheme:light)').matches){document.documentElement.setAttribute('data-theme','light');}else{document.documentElement.setAttribute('data-theme','dark');}})();</script>
 </head>
 <body>
 
@@ -185,6 +198,7 @@ pre{padding:14px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-siz
   <div class="hdr-right">
     <div class="hdr-search"><span>⌕</span> Search API docs...<kbd>⌘K</kbd></div>
     <span class="env-pill live">● Production</span>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
   </div>
 </header>
 
@@ -1188,6 +1202,7 @@ pre{padding:14px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-siz
 </div></main>
 
 <script>
+const themeBtn=document.getElementById('theme-toggle');function setTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('cf-theme',t);if(themeBtn)themeBtn.textContent=t==='dark'?'☀️':'🌙';}if(themeBtn){const cur=document.documentElement.getAttribute('data-theme')||'dark';themeBtn.textContent=cur==='dark'?'☀️':'🌙';themeBtn.addEventListener('click',()=>{const next=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';setTheme(next);});}
 function tog(h){h.closest('.ep').classList.toggle('open')}
 function go(el,id){
   document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
